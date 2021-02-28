@@ -8,7 +8,6 @@ import { CategoryFormComponent } from '../category-form/category-form.component'
   styleUrls: ['./top-bar.component.scss']
 })
 export class TopBarComponent implements OnInit {
-  @ViewChild('categoryForm', { static: true }) categoryForm: CategoryFormComponent;
 
     constructor() { }
 
@@ -16,7 +15,6 @@ export class TopBarComponent implements OnInit {
   }
 
   newCategory() {
-    this.categoryForm.open();
   }
 
 }

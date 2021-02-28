@@ -1,5 +1,6 @@
 <app-modal #modalNewCategory [modalTitle]="'Nova Categoria'" [primaryButton]="primaryButton" [secondaryButton]="secondaryButton" [actionOnClose]="onCloseModal">
   <form [formGroup]="categoryForm" class="category-form">
+    <input type="hidden" formControlName="id">
     <mat-form-field class="category-input-name">
       <input matInput type="text" placeholder="Nome" formControlName="name">
     </mat-form-field>

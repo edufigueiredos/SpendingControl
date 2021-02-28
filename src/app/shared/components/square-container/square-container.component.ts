@@ -7,6 +7,7 @@ import { ButtonSquareContainerModel } from '../../models/square-container.model'
   styleUrls: ['./square-container.component.scss']
 })
 export class SquareContainerComponent implements OnInit {
+  @Input() title: string;
   @Input() leftIcon: ButtonSquareContainerModel;
   @Input() rightIcon: ButtonSquareContainerModel;
 

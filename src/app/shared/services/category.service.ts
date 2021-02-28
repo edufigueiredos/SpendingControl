@@ -1,10 +1,11 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { delay, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { CategoryModel } from '../models/category.model';
+import { utilFindIndex } from '../util/spending-control-util';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +17,10 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getCategory(): Observable<CategoryModel[]> {
+  getCategories(): Observable<CategoryModel[]> {
     if (!this.loaded) {
-      this.http.get(this.categoryEndpoint).subscribe(this.categorySubject$);
+      this.http.get(this.categoryEndpoint)
+      .subscribe(this.categorySubject$);
       this.loaded = true
     }
 
@@ -31,10 +33,10 @@ export class CategoryService {
   }
 
   updateCategory(id: number, category: CategoryModel): Observable<CategoryModel> {
-    return this.http.put<CategoryModel>(`${this.categoryEndpoint}/${id}`, { category })
+    return this.http.put<CategoryModel>(`${this.categoryEndpoint}/${id}`, category)
       .pipe(tap((newCategory: CategoryModel) => {
         const categories = this.categorySubject$.getValue();
-        const index = this.findIndex(categories, newCategory);
+        const index = utilFindIndex(categories, newCategory);
         if (index >= 0) {
           categories[index] = newCategory;
         }
@@ -42,11 +44,13 @@ export class CategoryService {
   }
 
   deleteCategory(category: CategoryModel): Observable<any> {
-    return this.http.delete(`${this.categoryEndpoint}/${category.id}`)
-      
-  }
-
-  private findIndex(categories: CategoryModel[], findCategory: CategoryModel): number {
-    return categories.findIndex((auxCategory: CategoryModel) => auxCategory.id === findCategory.id);
+    return this.http.delete(`${this.categoryEndpoint}/${category.id}`).pipe(
+      tap(() => {
+      const categories = this.categorySubject$.getValue();
+      const index = utilFindIndex(categories, category);
+      if (index >= 0) {
+        categories.splice(index, 1);
+      }
+    }))
   }
 }

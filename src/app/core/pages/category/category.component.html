@@ -1,3 +1,23 @@
+<section class="page-title">
+  <h1 class="title">
+    Categorias
+  </h1>
+
+  <button class="button button-white" mat-button (click)="addCategory()">Nova Categoria</button>
+</section>
+
 <div class="container-pages spending-control-grid">
-  
+  <app-square-container class="square-category-container" *ngFor="let category of listOfCategories" [title]="category?.name">
+    <mat-icon class="info-icon" (click)="editCategory(category)">edit</mat-icon>
+    <mat-icon class="delete-icon" (click)="openDeleteCategoryModal(category)">delete</mat-icon>
+
+    <div class="category-card-container">
+      <span>{{category?.payday}}</span>
+    </div>
+  </app-square-container>
 </div>
+
+<app-category-form #categoryForm></app-category-form>
+<app-modal #deleteCategoryModal [primaryButton]="buttonDeleteCategory" [modalTitle]="'Apagar Categoria'">
+  <h3>Tem certeza que deseja apagar a categoria <b>{{categoryToDelete?.name}}</b></h3>
+</app-modal>

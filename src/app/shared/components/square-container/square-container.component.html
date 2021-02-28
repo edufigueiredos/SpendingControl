@@ -2,11 +2,11 @@
     <mat-icon *ngIf="!!leftIcon" class="left-icon" (click)="leftIcon?.action()">{{leftIcon.icon}}</mat-icon>
     <mat-icon *ngIf="!!rightIcon" class="right-icon" (click)="rightIcon?.action()">{{rightIcon.icon}}</mat-icon>
 
-    <div class="title-square">
-        <h2>Rendas e Gastos</h2>
+    <div class="title-square" *ngIf="!!title?.length">
+        <h2>{{title}}</h2>
     </div>
 
-    <div class="square-content">
+    <div class="square-content" [ngClass]="{'no-title': !title?.length}">
         <ng-content></ng-content>
     </div>
 </div>

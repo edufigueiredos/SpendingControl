@@ -14,8 +14,7 @@ import { CategoryFormModule } from '../category-form/category-form.module';
   imports: [
     CommonModule,
     MatIconModule,
-    MatButtonModule,
-    CategoryFormModule
+    MatButtonModule
   ],
   exports: [TopBarComponent]
 })
