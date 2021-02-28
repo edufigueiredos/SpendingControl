@@ -1,0 +1,12 @@
+<div class="square-container-component">
+    <mat-icon *ngIf="!!leftIcon" class="left-icon" (click)="leftIcon?.action()">{{leftIcon.icon}}</mat-icon>
+    <mat-icon *ngIf="!!rightIcon" class="right-icon" (click)="rightIcon?.action()">{{rightIcon.icon}}</mat-icon>
+
+    <div class="title-square">
+        <h2>Rendas e Gastos</h2>
+    </div>
+
+    <div class="square-content">
+        <ng-content></ng-content>
+    </div>
+</div>

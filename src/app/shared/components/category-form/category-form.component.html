@@ -1,0 +1,14 @@
+<app-modal #modalNewCategory [modalTitle]="'Nova Categoria'" [primaryButton]="primaryButton" [secondaryButton]="secondaryButton" [actionOnClose]="onCloseModal">
+  <form [formGroup]="categoryForm" class="category-form">
+    <mat-form-field class="category-input-name">
+      <input matInput type="text" placeholder="Nome" formControlName="name">
+    </mat-form-field>
+    <mat-form-field class="category-input-payday">
+      <mat-select formControlName="payday" placeholder="Dia de Pagamento">
+        <mat-option *ngFor="let day of payday" [value]="day">
+          {{day | number: '2.0'}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</app-modal>

@@ -30,7 +30,10 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "rxjs-compat"
+            ]
           },
           "configurations": {
             "production": {
@@ -123,6 +126,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "spending-control"
+    }
+  },
+  "defaultProject": "spending-control",
+  "cli": {
+    "analytics": "45a381dd-009f-4524-8708-c6a79de8e7d2"
+  }
 }
