@@ -11,11 +11,11 @@ export class AppComponent {
 
   menuOpen = window.innerWidth <= 680 ? false : true;
 
-  toggleMenu() {
+  toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
   }
 
-  closeMenu() {
+  closeMenu(): void {
     this.menuOpen = false;
   }
 }

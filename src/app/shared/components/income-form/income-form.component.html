@@ -1,0 +1,19 @@
+
+<app-modal #modalNewIncome [modalTitle]="'Nova Renda'" [primaryButton]="primaryButton" [secondaryButton]="secondaryButton" [actionOnClose]="onCloseModal">
+  <form [formGroup]="incomeForm" class="income-form">
+    <input type="hidden" formControlName="id">
+    <mat-form-field class="income-input-name">
+      <input matInput type="text" placeholder="Nome" formControlName="name">
+    </mat-form-field>
+    <mat-form-field class="income-input-value">
+      <input matInput type="number" placeholder="Valor" formControlName="value">
+    </mat-form-field>
+    <mat-form-field class="income-input-dayOfReceive">
+      <mat-select formControlName="dayOfReceive" placeholder="Dia de Receber">
+        <mat-option *ngFor="let day of dayOfReceive" [value]="day">
+          {{day | number: '2.0'}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</app-modal>

@@ -1,23 +1,23 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
-import { ModalAnimation } from '../../animations/modal.animation';
+import { modalAnimation } from '../../animations/modal.animation';
 import { ActionOnCloseModalModel, ButtonModalModel } from '../../models/button-modal.model';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
-  animations: [ModalAnimation]
+  animations: [modalAnimation]
 })
 export class ModalComponent implements OnInit, OnDestroy {
-  @Input() buttonClose: boolean = true;
+  @Input() buttonClose = true;
   @Input() modalTitle: string;
   @Input() primaryButton: ButtonModalModel;
   @Input() secondaryButton: ButtonModalModel;
   @Input() actionOnClose: ActionOnCloseModalModel = {
     action: () => { }
-  }
-  isHidden: boolean = true;
+  };
+  isHidden = true;
   keydownEvent: Subscription;
 
   get stateName() {
@@ -27,6 +27,12 @@ export class ModalComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy() {
+    if(this.keydownEvent) {
+      this.keydownEvent.unsubscribe();
+    }
   }
 
   public open() {
@@ -54,12 +60,6 @@ export class ModalComponent implements OnInit, OnDestroy {
   private closeModalWithEsc(event: KeyboardEvent) {
     if (event.key === 'Escape') {
       this.close();
-    }
-  }
-
-  ngOnDestroy() {
-    if(this.keydownEvent) {
-      this.keydownEvent.unsubscribe();
     }
   }
 

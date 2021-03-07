@@ -5,7 +5,7 @@ import { CategoryFormComponent } from 'src/app/shared/components/category-form/c
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 import { ButtonModalModel } from 'src/app/shared/models/button-modal.model';
 import { CategoryModel } from 'src/app/shared/models/category.model';
-import { CategoryService } from '../../../shared/services/category.service';
+import { CategoryService } from '../../../shared/services/category-service/category.service';
 
 @Component({
   selector: 'app-category',
@@ -19,7 +19,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
     label: 'Apagar',
     enabled: true,
     action: () => this.deleteCategory()
-  }
+  };
 
   public listOfCategories: CategoryModel[] = [];
   public categoryToDelete: CategoryModel;
@@ -31,10 +31,6 @@ export class CategoryComponent implements OnInit, OnDestroy {
     this.categoryService.getCategories()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(categories => this.listOfCategories = categories);
-  }
-
-  ngOnDestroy() {
-    this.unsubscribe$.next()
   }
 
   addCategory() {
@@ -51,9 +47,15 @@ export class CategoryComponent implements OnInit, OnDestroy {
   }
 
   deleteCategory() {
-    this.categoryService.deleteCategory(this.categoryToDelete).subscribe(() => {
-      this.deleteCategoryModal.close();
-    }), (error) => console.log(error);
+    this.categoryService.deleteCategory(this.categoryToDelete).subscribe({
+      complete: () => this.deleteCategoryModal.close(),
+      error: (error) => console.log(error)
+    });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

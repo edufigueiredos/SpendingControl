@@ -1,24 +1,6 @@
 @import "../../../../spend-control-styles.scss";
 
 .square-category-container {
-  position: relative;
-  .info-icon,
-  .delete-icon {
-    position: absolute;
-    top: 5px;
-    font-size: 18px;
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-  }
-
-  .info-icon {
-    left: 5px;
-  }
-  .delete-icon {
-    right: 5px;
-  }
-
   .category-card-container {
     width: 100%;
     height: 100%;

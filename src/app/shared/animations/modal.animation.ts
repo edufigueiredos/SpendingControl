@@ -5,9 +5,9 @@ import {
   style,
   transition,
   keyframes
-} from "@angular/animations";
+} from '@angular/animations';
 
-export const ModalAnimation = [
+export const modalAnimation = [
   trigger('openModalAndClose', [
     state('hidden', style({
       display: 'none',
@@ -30,4 +30,4 @@ export const ModalAnimation = [
         style({ display: 'none', offset: 1 }),
       ]))),
   ])
-]
+];

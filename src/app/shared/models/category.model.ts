@@ -1,5 +1,5 @@
-import { FixedSpendModel } from "./fixed-spend.model";
-import { InstallmentSpendModel } from "./installment-spend.model";
+import { FixedSpendModel } from './fixed-spend.model';
+import { InstallmentSpendModel } from './installment-spend.model';
 
 export interface CategoryModel {
   id?: number;

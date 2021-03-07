@@ -1,17 +1,18 @@
 export interface IncomeModel {
-  id: number;
+  id?: number;
   name: string;
-  dateOfReceive: Date;
-  incomeType: TypeOfIncomeEnum;
+  value: number;
+  dayOfReceive: number;
+  // incomeType: TypeOfIncomeEnum;
 }
 
-export interface IncomeTypeModel {
-  id: number;
-  qtyOfInstallments: number
-}
+// export interface IncomeTypeModel {
+//   id: number;
+//   qtyOfInstallments: number
+// }
 
-export enum TypeOfIncomeEnum {
-  fixed,
-  once,
-  installment
-}
+// export enum TypeOfIncomeEnum {
+//   fixed,
+//   once,
+//   installment
+// }

@@ -1,0 +1,15 @@
+@import '../../../../spend-control-styles.scss';
+
+.income-form {
+  display: flex;
+  justify-content: space-evenly;
+  .income-input-name {
+    width: calc(100% - 80px - 125px - 20px);
+  }
+  .income-input-value {
+    width: 80px;
+  }
+  .income-input-dayOfReceive {
+    width: 125px;
+  }
+}

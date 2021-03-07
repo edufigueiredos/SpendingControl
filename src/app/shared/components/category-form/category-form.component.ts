@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { take } from 'rxjs/operators';
 import { ActionOnCloseModalModel, ButtonModalModel } from '../../models/button-modal.model';
 import { CategoryModel } from '../../models/category.model';
-import { CategoryService } from '../../services/category.service';
+import { CategoryService } from '../../services/category-service/category.service';
 
 import { ModalComponent } from '../modal/modal.component';
 
@@ -15,9 +15,11 @@ import { ModalComponent } from '../modal/modal.component';
 })
 export class CategoryFormComponent implements OnInit, OnDestroy {
   @ViewChild('modalNewCategory', { static: true }) modalNewCategory: ModalComponent;
+
+  // Modal Functions
   onCloseModal: ActionOnCloseModalModel = {
     action: () => this.resetForm()
-  }
+  };
   primaryButton: ButtonModalModel = {
     label: 'Cadastrar',
     action: () => this.registerCategory(),
@@ -27,11 +29,12 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
     label: 'Cancelar',
     action: () => this.closeCategoryForm()
   };
+
+  // Category Form Variables
   isEdit = false;
-  categoryToEdit: CategoryModel;
   categoryForm: FormGroup;
-  formValueChanges: Subscription
-  payday = [];
+  formValueChanges: Subscription;
+  payday: number[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,16 +44,22 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
       id: [null],
       name: ['', Validators.required],
       payday: ['', [Validators.required, Validators.min(1), Validators.max(31)]]
-    })
+    });
   }
 
   ngOnInit(): void {
     this.createArrayOfPayday();
-  }
+  };
+
+  ngOnDestroy() {
+    if (this.formValueChanges) {
+      this.formValueChanges.unsubscribe();
+    }
+  };
 
   public open() {
     if (this.isEdit) {
-      this.primaryButton = { ...this.primaryButton, label: 'Editar' }
+      this.primaryButton = { ...this.primaryButton, label: 'Editar' };
     } else {
       this.primaryButton = { ...this.primaryButton, label: 'Cadastrar' };
     }
@@ -64,8 +73,7 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
       id: category.id,
       name: category.name,
       payday: category.payday
-    })
-    this.categoryToEdit = category;
+    });
     this.open();
   }
 
@@ -87,9 +95,8 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
 
   private resetForm() {
     this.isEdit = false;
-    this.formValueChanges.unsubscribe();
+  this.formValueChanges.unsubscribe();
     this.categoryForm.reset();
-    this.categoryToEdit = undefined;
     this.primaryButton = { ...this.primaryButton, enabled: false };
   }
 
@@ -99,24 +106,21 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
         const categoryToRegister: CategoryModel = {
           name: this.categoryForm.get('name').value,
           payday: this.categoryForm.get('payday').value
-        }
+        };
         this.categoryService.createCategory(categoryToRegister).pipe(take(1))
           .subscribe(() => {
             this.modalNewCategory.close();
             this.resetForm();
           }, (error) => console.log(error));
-      } else if (this.categoryToEdit) {
-        this.categoryService.updateCategory(this.categoryToEdit.id, this.categoryForm.value)
+      } else {
+        const categoryId = this.categoryForm.get('id').value;
+        this.categoryService.updateCategory(categoryId, this.categoryForm.value)
           .pipe(take(1)).subscribe(() => {
             this.modalNewCategory.close();
             this.isEdit = false;
-          }, (error) => console.log(error))
-      }
-    }
-  }
-
-  ngOnDestroy() {
-    this.formValueChanges.unsubscribe();
-  }
+          }, (error) => console.log(error));
+      };
+    };
+  };
 
 }

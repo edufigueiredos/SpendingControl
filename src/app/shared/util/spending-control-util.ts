@@ -1,4 +1,2 @@
-
-export function utilFindIndex(array: any[], itemToFind: any): number {
-  return array.findIndex((auxCategory: any) => auxCategory.id === itemToFind.id);
-}
+export const utilFindIndex = (array: any[], itemToFind: any): number =>
+  array.findIndex((auxCategory: any) => auxCategory.id === itemToFind.id);

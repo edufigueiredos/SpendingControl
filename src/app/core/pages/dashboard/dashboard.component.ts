@@ -15,22 +15,22 @@ export class DashboardComponent implements OnInit {
   leftButton: ButtonSquareContainerModel = {
     action: () => this.modal.open(),
     icon: 'info'
-  }
+  };
 
   rightButton: ButtonSquareContainerModel = {
     action: () => console.log('Botão da direita'),
     icon: 'delete'
-  }
+  };
 
   primaryButton: ButtonModalModel = {
     action: () => console.log('Botão primário'),
     label: 'Botão primário'
-  }
+  };
 
   secondaryButton: ButtonModalModel = {
     action: () => console.log('Botão secundário'),
     label: 'Botão secundário'
-  }
+  };
 
   constructor() { }
 

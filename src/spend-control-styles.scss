@@ -78,3 +78,23 @@ $white: #fff;
     background-color: rgba($color: $gray-light, $alpha: 1);
   }
 }
+
+.custom-square-buttons {
+  position: relative;
+  .left-icon,
+  .right-icon {
+    position: absolute;
+    top: 5px;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+
+  .left-icon {
+    left: 5px;
+  }
+  .right-icon {
+    right: 5px;
+  }
+}

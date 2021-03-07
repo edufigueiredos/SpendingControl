@@ -1,0 +1,20 @@
+<header class="page-title">
+  <h1 class="title">Rendas</h1>
+  <button class="button button-white" mat-button (click)="addIncome()">Nova Renda</button>
+</header>
+
+<section class="containerr-pages spending-control-grid">
+  <app-square-container *ngFor="let income of listOfIncomes" class="custom-square-buttons square-income-container" [title]="income?.name">
+    <mat-icon class="left-icon" (click)="editIncome(income)">edit</mat-icon>
+    <mat-icon class="right-icon" (click)="openDeleteIncomeModal(income)")>delete</mat-icon>
+
+    <div class="income-card-container">
+      Teste
+    </div>
+  </app-square-container>
+</section>
+
+<app-income-form #incomeForm></app-income-form>
+<app-modal #modalDeleteIncome>
+  <h3>Tem certeza que deseja apagar a categoria <b>{{incomeToDelete?.name}}</b></h3>
+</app-modal>
